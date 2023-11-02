@@ -1,6 +1,6 @@
 # flutter_example
 
-A new Flutter project.
+A new Flutter project for Dev Hack
 
 ## Getting Started
 
