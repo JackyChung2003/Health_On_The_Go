@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "961968261867",
+    "project_id": "authdevhack",
+    "storage_bucket": "authdevhack.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:961968261867:android:0c1eb330b35508a1ee0cae",
+        "android_client_info": {
+          "package_name": "com.example.devhacktesting"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLFiJjDQDvIkIBN0_C-y-HjrAkE0UM4EE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
