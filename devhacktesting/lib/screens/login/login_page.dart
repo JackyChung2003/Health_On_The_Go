@@ -53,23 +53,30 @@ class _LoginPageState extends State<LoginPage> {
       // hide/close the loading circle
       Navigator.pop(context);
 
-      // WRING email
       if (e.code == 'user-not-found') {
-        // show error to user
-        wrongEmailMessage();
-        print("Firebase error: ${e.code}");
-      }
-
-      // WRONG password
-      else if (e.code == 'wrong-password') {
-        // show error to user
-        wrongPasswordMessage();
-        print("Firebase error: ${e.code}");
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
       } else {
-        // Handle other error cases here
-        print("Firebase error: ${e.code}");
-        // You can display a generic error message here.
+        print(e);
       }
+      // // WRING email
+      // if (e.code == 'user-not-found') {
+      //   // show error to user
+      //   wrongEmailMessage();
+      //   print("Firebase error: ${e.code}");
+      // }
+
+      // // WRONG password
+      // else if (e.code == 'wrong-password') {
+      //   // show error to user
+      //   wrongPasswordMessage();
+      //   print("Firebase error: ${e.code}");
+      // } else {
+      //   // Handle other error cases here
+      //   print("Firebase error: ${e.code}");
+      //   // You can display a generic error message here.
+      // }
     }
   }
 
