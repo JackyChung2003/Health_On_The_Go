@@ -32,7 +32,7 @@ class LoginPage extends StatelessWidget {
       body: SafeArea(
         child: Center(
           child: Column(
-            // mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // const SizedBox(height: 10),
 
@@ -218,7 +218,7 @@ class LoginPage extends StatelessWidget {
 
                   SizedBox(height: 10),
 
-                  // apple button
+                  // facebook button
                   Column(
                     // mainAxisAlignment: MainAxisAlignment.center,
                     children: [
