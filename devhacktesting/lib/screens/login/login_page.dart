@@ -1,3 +1,5 @@
+import 'package:devhacktesting/components/login_button.dart';
+import 'package:devhacktesting/components/login_text_field.dart';
 import 'package:flutter/material.dart';
 
 // class LoginPage extends StatelessWidget {
@@ -30,46 +32,71 @@ class LoginPage extends StatelessWidget {
       body: SafeArea(
         child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            // mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: 50),
+              // const SizedBox(height: 10),
 
               // picture for login user to see
-              // const Icon(
-              //   Icons.lock,
-              //   size: 100,
-              // ),
-              const Image(
-                  image: AssetImage('lib/images/google.png')), // lock image
+              Image.asset(
+                'lib/images/Login-doctor-view.png',
+                height: 100,
+              ),
 
-              const SizedBox(height: 50),
+              // const SizedBox(height: 10),
 
               // welcome back, you've been missed!
-              Text(
-                'Welcome back you\'ve been missed!',
-                style: TextStyle(
-                  color: Colors.grey[700],
-                  fontSize: 16,
+
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Welcome Back',
+                      style: TextStyle(
+                          color: Colors.grey[900],
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 10),
+
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Login with email',
+                      style: TextStyle(
+                        color: Colors.grey[700],
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
                 ),
               ),
 
               const SizedBox(height: 25),
 
               // username textfield
-              // MyTextField(
-              //   controller: usernameController,
-              //   hintText: 'Username',
-              //   obscureText: false,
-              // ),
+              LoginTextField(
+                controller: usernameController,
+                hintText: 'Username',
+                obscureText: false,
+              ),
 
-              // const SizedBox(height: 10),
+              const SizedBox(height: 10),
 
-              // // password textfield
-              // MyTextField(
-              //   controller: passwordController,
-              //   hintText: 'Password',
-              //   obscureText: true,
-              // ),
+              // password textfield
+              LoginTextField(
+                controller: passwordController,
+                hintText: 'Password',
+                obscureText: true,
+              ),
 
               const SizedBox(height: 10),
 
@@ -87,14 +114,38 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
 
-              const SizedBox(height: 25),
+              const SizedBox(height: 15),
 
               // sign in button
+              LoginButton(
+                onTap: signUserIn,
+              ),
               // MyButton(
               //   onTap: signUserIn,
               // ),
 
-              const SizedBox(height: 50),
+              const SizedBox(height: 20),
+
+              // not a member? register now
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Don’t have an account?',
+                    style: TextStyle(color: Colors.grey[700]),
+                  ),
+                  const SizedBox(width: 4),
+                  const Text(
+                    'Sign Up',
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 10),
 
               // or continue with
               Padding(
@@ -124,47 +175,96 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
 
-              const SizedBox(height: 50),
+              const SizedBox(height: 10),
 
-              // google + apple sign in buttons
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              // google + facebook sign in buttons
+              Column(
+                // mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // google button
-                  // SquareTile(imagePath: 'lib/images/google.png'),
-                  Image.asset(
-                    'lib/images/google.png',
-                    width: 50,
-                    height: 50,
-                  ),
-
-                  SizedBox(width: 25),
-
-                  // apple button
-                  // SquareTile(imagePath: 'lib/images/apple.png')
-                ],
-              ),
-
-              const SizedBox(height: 50),
-
-              // not a member? register now
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Not a member?',
-                    style: TextStyle(color: Colors.grey[700]),
-                  ),
-                  const SizedBox(width: 4),
-                  const Text(
-                    'Register now',
-                    style: TextStyle(
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold,
+                  GestureDetector(
+                    child: Container(
+                      padding: EdgeInsets.all(15),
+                      margin: EdgeInsets.symmetric(horizontal: 50),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.shade400,
+                            blurRadius: 1,
+                            offset: Offset(0, 1),
+                          ),
+                        ],
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Image.asset(
+                            'lib/images/google.png',
+                            height: 20,
+                          ),
+                          const SizedBox(width: 20),
+                          Text(
+                            "Continue with Google",
+                            style: TextStyle(
+                                color: Colors.grey[600],
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
+
+                  SizedBox(height: 10),
+
+                  // apple button
+                  Column(
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        child: Container(
+                          padding: EdgeInsets.all(15),
+                          margin: EdgeInsets.symmetric(horizontal: 50),
+                          decoration: BoxDecoration(
+                            color: Color(0xff1877F2),
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.shade400,
+                                blurRadius: 1,
+                                offset: Offset(0, 1),
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Image.asset(
+                                'lib/images/facebook.png',
+                                height: 20,
+                              ),
+                              const SizedBox(width: 20),
+                              Text(
+                                "Continue with Facebook",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+
+                      SizedBox(width: 25),
+
+                      // apple button
+                      // SquareTile(imagePath: 'lib/images/apple.png')
+                    ],
+                  ),
                 ],
-              )
+              ),
             ],
           ),
         ),
