@@ -16,18 +16,104 @@ import 'package:flutter/material.dart';
 // import 'package:modernlogintute/components/my_textfield.dart';
 // import 'package:modernlogintute/components/square_tile.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   LoginPage({super.key});
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   // text editing controllers
   final emailController = TextEditingController();
+
   final passwordController = TextEditingController();
 
   // sign user in method
   void signUserIn() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: emailController.text,
-      password: passwordController.text,
+    // show some loading circle for user to wait
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+
+    // sign in user
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+      // hide/close the loading circle
+      Navigator.pop(context);
+    } on FirebaseAuthException catch (e) {
+      // hide/close the loading circle
+      Navigator.pop(context);
+
+      // WRING email
+      if (e.code == 'user-not-found') {
+        // show error to user
+        wrongEmailMessage();
+        print("Firebase error: ${e.code}");
+      }
+
+      // WRONG password
+      else if (e.code == 'wrong-password') {
+        // show error to user
+        wrongPasswordMessage();
+        print("Firebase error: ${e.code}");
+      } else {
+        // Handle other error cases here
+        print("Firebase error: ${e.code}");
+        // You can display a generic error message here.
+      }
+    }
+  }
+
+  // wrong email message popup
+  void wrongEmailMessage() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Wrong Email'),
+          content: const Text('The email you entered does not exist.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                // close the popup
+                Navigator.pop(context);
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // wrong email message popup
+  void wrongPasswordMessage() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Wrong Password'),
+          content: const Text('The password you entered is incorrect.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                // close the popup
+                Navigator.pop(context);
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
     );
   }
 
