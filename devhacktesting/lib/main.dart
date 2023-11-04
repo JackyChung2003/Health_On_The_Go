@@ -1,5 +1,6 @@
+import 'package:devhacktesting/screens/login/login_page.dart';
 import 'package:flutter/material.dart';
-import 'package:devhacktesting/screens/wrapper.dart';
+// import 'package:devhacktesting/screens/wrapper.dart';
 // import 'screens/home/home.dart'; // new added to go to home.dart
 import 'screens/nav_page.dart';
 
@@ -10,7 +11,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: NavBar(),
+      // home: NavBar(),
+      home: LoginPage(),
     );
   }
 }
