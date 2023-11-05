@@ -1,21 +1,14 @@
+import 'dart:math';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:devhacktesting/components/login_button.dart';
 import 'package:devhacktesting/components/login_text_field.dart';
+import 'package:devhacktesting/screens/login/login_or_register_page.dart';
+// import 'package:devhacktesting/screens/login/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
+// import 'package:firebase_database/firebase_database.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
-// class LoginPage extends StatelessWidget {
-//   const LoginPage({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return const Placeholder();
-//   }
-// }
-// import 'package:flutter/material.dart';
-// import 'package:modernlogintute/components/my_button.dart';
-// import 'package:modernlogintute/components/my_textfield.dart';
-// import 'package:modernlogintute/components/square_tile.dart';
 
 class RegisterPage extends StatefulWidget {
   final Function()? onTap;
@@ -31,8 +24,16 @@ class _RegisterPageState extends State<RegisterPage> {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
+  // role for user to register
+  var options = ['Patient', 'Doctor'];
+  var _currentItemSelected = "Patient";
+  var role = "Patient";
+
+  final _auth = FirebaseAuth.instance;
+  // final _formkey = GlobalKey<FormState>();
+
   // sign user up method
-  void signUserUp() async {
+  void signUserUp(String email, String password, String rool) async {
     // show some loading circle for user to wait
     showDialog(
       context: context,
@@ -43,19 +44,24 @@ class _RegisterPageState extends State<RegisterPage> {
       },
     );
 
-    final _auth = FirebaseAuth.instance;
-    final databaseReference =
-        FirebaseDatabase.instance.reference().child("Users");
-    // final dbRef = FirebaseDatabase.instance
-
     // try creating patient and doctor
     try {
       // check whether password and confirm password is the same
       if (passwordController.text == confirmPasswordController.text) {
-        final newUser = await _auth.createUserWithEmailAndPassword(
-          email: emailController.text,
-          password: passwordController.text,
-        );
+        try {
+          // final newUser = await _auth.createUserWithEmailAndPassword(
+          final newUser = await _auth.createUserWithEmailAndPassword(
+            email: emailController.text,
+            password: passwordController.text,
+          );
+          postDetailsToFirestore(email, role);
+        } catch (e) {
+          // Handle the error and return a value that matches the expected type
+          Navigator.pop(context);
+
+          print("Error: $e");
+          showErrorMessage("An error occurred during registration.");
+        }
       } else {
         // hide/close the loading circle
         Navigator.pop(context);
@@ -89,44 +95,14 @@ class _RegisterPageState extends State<RegisterPage> {
     }
   }
 
-  //   // sign in user
-  //   try {
-  //     final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-  //       email: emailController.text,
-  //       password: passwordController.text,
-  //     );
-  //     // hide/close the loading circle
-  //     Navigator.pop(context);
-  //   } on FirebaseAuthException catch (e) {
-  //     // hide/close the loading circle
-  //     Navigator.pop(context);
-
-  //     if (e.code == 'user-not-found') {
-  //       print('No user found for that email.');
-  //     } else if (e.code == 'wrong-password') {
-  //       print('Wrong password provided for that user.');
-  //     } else {
-  //       print(e);
-  //     }
-  //     // // WRING email
-  //     // if (e.code == 'user-not-found') {
-  //     //   // show error to user
-  //     //   wrongEmailMessage();
-  //     //   print("Firebase error: ${e.code}");
-  //     // }
-
-  //     // // WRONG password
-  //     // else if (e.code == 'wrong-password') {
-  //     //   // show error to user
-  //     //   wrongPasswordMessage();
-  //     //   print("Firebase error: ${e.code}");
-  //     // } else {
-  //     //   // Handle other error cases here
-  //     //   print("Firebase error: ${e.code}");
-  //     //   // You can display a generic error message here.
-  //     // }
-  //   }
-  // }
+  postDetailsToFirestore(String email, String role) async {
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    var user = _auth.currentUser;
+    CollectionReference ref = FirebaseFirestore.instance.collection('users');
+    ref.doc(user!.uid).set({'email': emailController.text, 'role': role});
+    Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (context) => LoginOrRegisterPage()));
+  }
 
   // wrong error message to user
   void showErrorMessage(String message) {
@@ -245,13 +221,44 @@ class _RegisterPageState extends State<RegisterPage> {
                 //   ),
                 // ),
 
+                const SizedBox(height: 10),
+
+                DropdownButton<String>(
+                  dropdownColor: Colors.blue[900],
+                  isDense: true,
+                  isExpanded: false,
+                  iconEnabledColor: Colors.white,
+                  focusColor: Colors.white,
+                  items: options.map((String dropDownStringItem) {
+                    return DropdownMenuItem<String>(
+                      value: dropDownStringItem,
+                      child: Text(
+                        dropDownStringItem,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                  onChanged: (newValueSelected) {
+                    setState(() {
+                      _currentItemSelected = newValueSelected!;
+                      role = newValueSelected;
+                    });
+                  },
+                  value: _currentItemSelected,
+                ),
+
                 const SizedBox(height: 25),
 
                 // sign in button
                 LoginButton(
                   text: 'Sign Up',
                   onTap: () {
-                    signUserUp();
+                    signUserUp(
+                        emailController.text, passwordController.text, role);
                     debugPrint(
                         "Login button tapped"); // Add this line to log the message
                   },
