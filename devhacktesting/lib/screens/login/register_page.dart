@@ -17,22 +17,22 @@ import 'package:flutter/material.dart';
 // import 'package:modernlogintute/components/my_textfield.dart';
 // import 'package:modernlogintute/components/square_tile.dart';
 
-class LoginPage extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
   final Function()? onTap;
-  LoginPage({super.key, required this.onTap});
+  RegisterPage({super.key, required this.onTap});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   // text editing controllers
   final emailController = TextEditingController();
-
   final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
 
-  // sign user in method
-  void signUserIn() async {
+  // sign user up method
+  void signUserUp() async {
     // show some loading circle for user to wait
     showDialog(
       context: context,
@@ -47,23 +47,28 @@ class _LoginPageState extends State<LoginPage> {
     final databaseReference =
         FirebaseDatabase.instance.reference().child("Users");
     // final dbRef = FirebaseDatabase.instance
-    // sign in patient and doctor
-    try {
-      // final newUser = await _auth.signInWithEmailAndPassword(
-      await _auth.signInWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text,
-      );
 
-      // hide/close the loading circle
-      Navigator.pop(context);
+    // try creating patient and doctor
+    try {
+      // check whether password and confirm password is the same
+      if (passwordController.text == confirmPasswordController.text) {
+        final newUser = await _auth.createUserWithEmailAndPassword(
+          email: emailController.text,
+          password: passwordController.text,
+        );
+      } else {
+        // hide/close the loading circle
+        Navigator.pop(context);
+
+        // show error message, passwords dont match
+        showErrorMessage("Passwords do not match!");
+      }
     } on FirebaseAuthException catch (e) {
       // hide/close the loading circle
       Navigator.pop(context);
 
       // show error message
       showErrorMessage(e.code);
-
       // // WRING email
       // if (e.code == 'user-not-found') {
       //   // show error to user
@@ -141,42 +146,6 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  // // wrong email message popup
-  // void wrongEmailMessage() {
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) {
-  //       return const AlertDialog(
-  //         backgroundColor: Colors.deepPurple,
-  //         title: Center(
-  //           child: Text(
-  //             'Incorrect Email',
-  //             style: TextStyle(color: Colors.white),
-  //           ),
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
-
-  // // wrong email message popup
-  // void wrongPasswordMessage() {
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) {
-  //       return const AlertDialog(
-  //         backgroundColor: Colors.deepPurple,
-  //         title: Center(
-  //           child: Text(
-  //             'Incorrect Password',
-  //             style: TextStyle(color: Colors.white),
-  //           ),
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -197,7 +166,7 @@ class _LoginPageState extends State<LoginPage> {
 
                 // const SizedBox(height: 10),
 
-                // welcome back, you've been missed!
+                // Create an account
 
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -205,7 +174,7 @@ class _LoginPageState extends State<LoginPage> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        'Welcome Back',
+                        'Create an account',
                         style: TextStyle(
                             color: Colors.grey[900],
                             fontSize: 20,
@@ -215,23 +184,23 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
 
-                const SizedBox(height: 10),
+                // const SizedBox(height: 10),
 
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Login with email',
-                        style: TextStyle(
-                          color: Colors.grey[700],
-                          fontSize: 16,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.start,
+                //     children: [
+                //       Text(
+                //         'Login with email',
+                //         style: TextStyle(
+                //           color: Colors.grey[700],
+                //           fontSize: 16,
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
 
                 const SizedBox(height: 25),
 
@@ -253,27 +222,36 @@ class _LoginPageState extends State<LoginPage> {
 
                 const SizedBox(height: 10),
 
-                // forgot password?
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        'Forgot Password?',
-                        style: TextStyle(color: Colors.grey[600]),
-                      ),
-                    ],
-                  ),
+                // confirm password textfield
+                LoginTextField(
+                  controller: confirmPasswordController,
+                  hintText: 'Confirm Password',
+                  obscureText: true,
                 ),
 
-                const SizedBox(height: 15),
+                // const SizedBox(height: 10),
+
+                // // forgot password?
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.end,
+                //     children: [
+                //       Text(
+                //         'Forgot Password?',
+                //         style: TextStyle(color: Colors.grey[600]),
+                //       ),
+                //     ],
+                //   ),
+                // ),
+
+                const SizedBox(height: 25),
 
                 // sign in button
                 LoginButton(
-                  text: 'Log In',
+                  text: 'Sign Up',
                   onTap: () {
-                    signUserIn();
+                    signUserUp();
                     debugPrint(
                         "Login button tapped"); // Add this line to log the message
                   },
@@ -289,14 +267,14 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Don’t have an account?',
+                      'Already have an account?',
                       style: TextStyle(color: Colors.grey[700]),
                     ),
                     const SizedBox(width: 4),
                     GestureDetector(
                       onTap: widget.onTap,
                       child: const Text(
-                        'Sign Up',
+                        'Login now',
                         style: TextStyle(
                           color: Colors.blue,
                           fontWeight: FontWeight.bold,

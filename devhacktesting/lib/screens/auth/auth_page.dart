@@ -1,3 +1,4 @@
+import 'package:devhacktesting/screens/login/login_or_register_page.dart';
 import 'package:devhacktesting/screens/login/login_page.dart';
 import 'package:devhacktesting/screens/nav_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -18,7 +19,7 @@ class AuthPage extends StatelessWidget {
           }
           // user is NOT logged in
           else {
-            return LoginPage();
+            return LoginOrRegisterPage();
           }
         },
       ),

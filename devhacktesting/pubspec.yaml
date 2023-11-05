@@ -38,6 +38,7 @@ dependencies:
   table_calendar: ^3.0.9
   firebase_core: ^2.21.0
   firebase_auth: ^4.12.1
+  firebase_database: 10.3.3
 
 dev_dependencies:
   flutter_test:
