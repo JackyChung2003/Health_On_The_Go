@@ -1,5 +1,12 @@
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:devhacktesting/components/login_button.dart';
 import 'package:devhacktesting/components/login_text_field.dart';
+import 'package:devhacktesting/screens/doctor_UI/doctor_nav_page.dart';
+import 'package:devhacktesting/screens/patient_UI/Personal/Personal_page.dart';
+import 'package:devhacktesting/screens/patient_UI/home/home_page.dart';
+import 'package:devhacktesting/screens/patient_UI/nav_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -28,8 +35,9 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   // text editing controllers
   final emailController = TextEditingController();
-
   final passwordController = TextEditingController();
+
+  final _auth = FirebaseAuth.instance;
 
   // sign user in method
   void signUserIn() async {
@@ -43,20 +51,24 @@ class _LoginPageState extends State<LoginPage> {
       },
     );
 
-    final _auth = FirebaseAuth.instance;
-    final databaseReference =
-        FirebaseDatabase.instance.reference().child("Users");
+    // final databaseReference =
+    //     FirebaseDatabase.instance.reference().child("Users");
     // final dbRef = FirebaseDatabase.instance
+
     // sign in patient and doctor
     try {
+      debugPrint("enter login");
       // final newUser = await _auth.signInWithEmailAndPassword(
-      await _auth.signInWithEmailAndPassword(
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
       );
+      debugPrint("before enter route");
+      route();
 
       // hide/close the loading circle
       Navigator.pop(context);
+      debugPrint("finish route");
     } on FirebaseAuthException catch (e) {
       // hide/close the loading circle
       Navigator.pop(context);
@@ -175,6 +187,117 @@ class _LoginPageState extends State<LoginPage> {
   //       );
   //     },
   //   );
+  // }
+
+  void route() {
+    debugPrint("enter route");
+    User? user = FirebaseAuth.instance.currentUser;
+    debugPrint("123");
+    var kk = FirebaseFirestore.instance
+        .collection('users')
+        .doc(user!.uid)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      debugPrint("before mounted");
+      if (documentSnapshot.exists) {
+        if (documentSnapshot.get('role') == "Patient") {
+          debugPrint("Patient");
+          return NavBar();
+          // Navigator.pushReplacement(
+          //   context,
+          //   MaterialPageRoute(
+          //     builder: (context) => HomePage(),
+          //   ),
+          // );
+          debugPrint("Patient finish");
+        } else {
+          debugPrint("doctor");
+          // Navigator.pushReplacement(
+          //   context,
+          //   MaterialPageRoute(
+          //     builder: (context) => DoctorNavBar(),
+          //   ),
+          // );
+          // Navigator.pushReplacement(
+          //   context,
+          //   MaterialPageRoute(
+          //     builder: (context) => DoctorNavBar(),
+          //   ),
+          // );
+          debugPrint("doctor finish");
+        }
+      } else {
+        debugPrint("Document does not exist on the database");
+        print('Document does not exist on the database');
+      }
+    });
+  }
+
+  // void route() {
+  //   debugPrint("enter route");
+  //   User? user = FirebaseAuth.instance.currentUser;
+  //   debugPrint("123");
+  //   var kk = FirebaseFirestore.instance
+  //       .collection('users')
+  //       .doc(user!.uid)
+  //       .get()
+  //       .then((DocumentSnapshot documentSnapshot) {
+  //     debugPrint("before mounted");
+  //     if (documentSnapshot.exists) {
+  //       if (documentSnapshot.get('role') == "Patient") {
+  //         debugPrint("Patient");
+  //         Navigator.pushReplacement(
+  //           context,
+  //           MaterialPageRoute(
+  //             builder: (context) => HomePage(),
+  //           ),
+  //         );
+  //         debugPrint("Patient finish");
+  //       } else {
+  //         debugPrint("doctor");
+  //         Navigator.pushReplacement(
+  //           context,
+  //           MaterialPageRoute(
+  //             builder: (context) => DoctorNavBar(),
+  //           ),
+  //         );
+  //         debugPrint("doctor finish");
+  //       }
+  //     } else {
+  //       debugPrint("Document does not exist on the database");
+  //       print('Document does not exist on the database');
+  //     }
+  //     debugPrint("cannot enter mounted");
+  //   });
+  // }
+
+  // void route() {
+  //   User? user = FirebaseAuth.instance.currentUser;
+  //   var kk = FirebaseFirestore.instance
+  //       .collection('users')
+  //       .doc(user!.uid)
+  //       .get()
+  //       .then((DocumentSnapshot documentSnapshot) {
+  //     if (documentSnapshot.exists) {
+  //       if (documentSnapshot.get('role') == "Patient") {
+  //         Navigator.pushReplacement(
+  //           context,
+  //           MaterialPageRoute(
+  //             builder: (context) => HomePage(),
+  //           ),
+  //         );
+  //       } else {
+  //         Navigator.pushReplacement(
+  //           context,
+  //           MaterialPageRoute(
+  //             builder: (context) => Personal(),
+  //           ),
+  //         );
+  //       }
+  //     } else {
+  //       print('Document does not exist on the database');
+  //     }
+  //   });
   // }
 
   @override
