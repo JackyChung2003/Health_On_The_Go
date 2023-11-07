@@ -188,6 +188,7 @@ class _CalendarState extends State<Calendar> {
               onPressed: () {
                 // add the event to the list
                 firestoreService.createEvent(
+                    event,
                     eventTextController.text,
                     eventFrequencyController.text,
                     startDateController.text,

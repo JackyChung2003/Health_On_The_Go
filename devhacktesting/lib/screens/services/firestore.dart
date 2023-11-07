@@ -6,11 +6,12 @@ class FirestoreService {
       FirebaseFirestore.instance.collection('events');
 
   // Create
-  Future<void> createEvent(String event_type, String name, String start_date,
-      String end_date, String time) {
+  Future<void> createEvent(String event_type, String name, String frequency,
+      String start_date, String end_date, String time) {
     return events.add({
       'event_type': event_type,
       'name': name,
+      'frequency': frequency,
       'start_date': start_date,
       'end_date': end_date,
       'time': time,
