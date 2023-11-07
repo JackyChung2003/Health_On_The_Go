@@ -1,5 +1,7 @@
 import 'package:devhacktesting/screens/auth/auth_page.dart';
 import 'package:devhacktesting/screens/login/login_page.dart';
+import 'package:devhacktesting/screens/patient_UI/calendar/calendar_page.dart';
+import 'package:devhacktesting/screens/patient_UI/nav_page.dart';
 import 'package:flutter/material.dart';
 // import 'package:devhacktesting/screens/wrapper.dart';
 // import 'screens/home/home.dart'; // new added to go to home.dart
@@ -20,9 +22,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      // home: NavBar(),
-      home: AuthPage(),
+    return MaterialApp(
+      // home: Calendar(),
+      home: NavBar(),
+      // home: AuthPage(),
     );
   }
 }

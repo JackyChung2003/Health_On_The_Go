@@ -40,6 +40,7 @@ dependencies:
   firebase_auth: ^4.12.1
   firebase_database: 10.3.3
   cloud_firestore: ^4.12.2
+  timeline_tile: ^2.0.0
 
 dev_dependencies:
   flutter_test:

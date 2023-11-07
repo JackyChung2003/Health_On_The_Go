@@ -1,18 +1,18 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:flutter/material.dart';
-// import 'package:google_nav_bar/google_nav_bar.dart';
+// import 'package:flutter/material.dart';
+// // import 'package:google_nav_bar/google_nav_bar.dart';
 
-class HomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Text('home'),
-      ),
-    );
-  }
-}
+// class HomePage extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Center(
+//         child: Text('home'),
+//       ),
+//     );
+//   }
+// }
 
 // class Home extends StatefulWidget {
 //   const Home({Key? key}) : super(key: key);
@@ -59,3 +59,17 @@ class HomePage extends StatelessWidget {
 //     );
 //   }
 // }
+
+import 'package:flutter/material.dart';
+// import 'package:google_nav_bar/google_nav_bar.dart';
+
+class HomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Text('home'),
+      ),
+    );
+  }
+}
