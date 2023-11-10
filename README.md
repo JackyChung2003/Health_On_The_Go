@@ -78,3 +78,12 @@ Breaking geographical barriers for users to connect with healthcare professional
 Informing and guiding users towards healthier lifestyles.
 ### Aid in Patients' Health Management and Recovery
 Supporting personalized management and expediting recovery.
+
+## Test Accounts
+- Patient Account:
+  - Email: patient1234@gmail.com
+  - Password: 12345678
+
+- Doctor Account:
+  - Email: doctor1234@gmail.com
+  - Password: 12345678
