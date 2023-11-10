@@ -34,8 +34,8 @@ class _HomeState extends State<NavBar> {
 
   // create a list of pages
   final List _pages = [
-    HomePage(),
     HealthCare(),
+    HomePage(),
     Calendar(),
     Personal(),
   ];

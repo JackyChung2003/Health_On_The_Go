@@ -1,0 +1,322 @@
+import 'package:devhacktesting/screens/patient_UI/nav_page.dart';
+import 'package:flutter/material.dart';
+
+class queuelistView extends StatefulWidget {
+  const queuelistView({super.key});
+
+  @override
+  State<queuelistView> createState() => queuelistViewState();
+}
+
+class queuelistViewState extends State<queuelistView> {
+  final primaryColor = Color(0xFF22668D);
+  final secondaryColor = Color(0xFFEDFFFD);
+  final gradientStartColor = Color(0xFF00F652);
+  final gradientEndColor = Color(0xFF00BCF6);
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              gradientStartColor.withOpacity(0.5),
+              gradientEndColor.withOpacity(0.5)
+            ],
+          ),
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(18.0),
+                child: Row(children: [
+                  IconButton(
+                    onPressed: () => {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => NavBar()))
+                    },
+                    icon: const Icon(
+                      Icons.arrow_back,
+                      color: Color(0xff2B2A4C),
+                      size: 35,
+                    ),
+                  ),
+                  const SizedBox(width: 50),
+                  const Text(
+                    'Virtual Queue',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 25,
+                      fontFamily: 'Merriweather Sans',
+                      fontWeight: FontWeight.w500,
+                      height: 0,
+                    ),
+                  ),
+                ]),
+              ),
+              const SizedBox(height: 15),
+              const Text(
+                'You are now in a virtual queue',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 30,
+                  fontFamily: 'Merriweather Sans',
+                  fontWeight: FontWeight.w700,
+                  height: 0,
+                ),
+              ),
+              const SizedBox(height: 15),
+              Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(16),
+                margin: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 5,
+                      offset: Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Booking Details',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue, // Change color as needed
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Container(
+                      height: 2,
+                      color: Colors.blue, // Change color as needed
+                      width: 350,
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      'Date: 30/8/2024',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      'Hospital: Loh Guan Lye Specialists Centre',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      'Doctor Name: Dr Lim Boon Xiong',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      'Room: Room 203',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 0),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+                child: Image.asset('lib/images/google.png',
+                    height: 100, width: 100),
+              ),
+
+              // ticket number
+              Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(16),
+                margin: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 5,
+                      offset: Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Your Ticket Number',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black, // Change color as needed
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Container(
+                      height: 2,
+                      color: const Color.fromARGB(
+                          255, 2, 48, 87), // Change color as needed
+                      width: 350,
+                    ),
+                    SizedBox(height: 8),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          '1009',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 60,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                    // Row(
+                    //   children: [
+                    //     Column(
+                    //       // mainAxisAlignment: MainAxisAlignment.start,
+                    //       crossAxisAlignment: CrossAxisAlignment.start,
+                    //       children: [
+                    //         Text(
+                    //           'Estimated time: 30 minutes',
+                    //           style: TextStyle(
+                    //             fontSize: 16,
+                    //             fontWeight: FontWeight.bold,
+                    //           ),
+                    //         ),
+                    //         SizedBox(height: 8),
+                    //         Text(
+                    //           'No of ppl in front: 9',
+                    //           style: TextStyle(
+                    //             fontSize: 16,
+                    //             fontWeight: FontWeight.bold,
+                    //           ),
+                    //         ),
+                    //       ],
+                    //     ),
+                    //     Spacer(),
+                    //     Column(
+                    //       crossAxisAlignment: CrossAxisAlignment.end,
+                    //       children: [
+                    //         IconButton(
+                    //           onPressed: () => {
+                    //             Navigator.push(
+                    //                 context,
+                    //                 MaterialPageRoute(
+                    //                     builder: (context) => NavBar()))
+                    //           },
+                    //           icon: const Icon(
+                    //             Icons.arrow_back,
+                    //             color: Color(0xff2B2A4C),
+                    //             size: 35,
+                    //           ),
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ],
+                    // ),
+                    Row(
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Estimated time: 30 minutes',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(height: 8),
+                            Text(
+                              'No of ppl in front: 9',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Spacer(), // This will push the IconButton to the far right
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            OutlinedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => NavBar()),
+                                );
+                                // Add any additional logic for canceling the booking here
+                              },
+                              style: OutlinedButton.styleFrom(
+                                side: BorderSide(
+                                    color: Colors.red.shade800, width: 2),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                              ),
+                              child: Text(
+                                'Cancel Booking',
+                                style: TextStyle(
+                                  color: Colors.red.shade800,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+
+        // child: Scaffold(
+        // backgroundColor: Colors.transparent,
+        // body: SingleChildScrollView(
+        //   scrollDirection: Axis.vertical,
+        //   child: Column(
+        //     children: [
+        //       const SizedBox(
+        //         height: 30,
+        //       ),
+        //       Padding(
+        //         padding: const EdgeInsets.all(18.0),
+        //         child: Row(
+        //           children: [,
+      ),
+    );
+  }
+}

@@ -1,9 +1,13 @@
+import 'package:devhacktesting/screens/doctor_UI/Personal/Personal_page.dart';
+import 'package:devhacktesting/screens/doctor_UI/calendar/calendar_page.dart';
+import 'package:devhacktesting/screens/doctor_UI/home/home_page.dart';
+import 'package:devhacktesting/screens/doctor_UI/patient_list/patient_list_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'home/home_page.dart';
-import 'health_care/health_care_page.dart';
-import 'calendar/calendar_page.dart';
-import 'Personal/Personal_page.dart';
+// import 'home/home_page.dart';
+// import 'patient_list/patient_list_page.dart';
+// import 'calendar/calendar_page.dart';
+// import 'Personal/Personal_page.dart';
 
 // class Home extends StatelessWidget {
 //   @override
@@ -71,7 +75,7 @@ class _DoctorNavBarState extends State<DoctorNavBar> {
               // GButton(icon: Icons.calendar_today),
               // GButton(icon: Icons.person),
               GButton(icon: Icons.home, text: 'Doctor Home'),
-              GButton(icon: Icons.health_and_safety, text: 'Health'),
+              GButton(icon: Icons.group, text: 'Patient List'),
               GButton(icon: Icons.calendar_today, text: 'Calendar'),
               GButton(icon: Icons.person, text: 'Personal'),
             ],

@@ -41,6 +41,7 @@ dependencies:
   firebase_database: 10.3.3
   cloud_firestore: ^4.12.2
   timeline_tile: ^2.0.0
+  shimmer: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -93,5 +94,17 @@ flutter:
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
   #
+
+  # fonts:
+  #   - family: MerriweatherSans
+  #     fonts:
+  #       - asset: lib/fonts/MerriweatherSans-Bold.otf
+  #       - asset: lib/fonts/MerriweatherSans-Regular.otf
+  #       - asset: lib/fonts/MerriweatherSans-Light.otf
+  #   - family: Inter
+  #     fonts:
+  #       - asset: lib/fonts/Inter-Bold.otf
+  #       - asset: lib/fonts/Inter-Regular.otf
+  #       - asset: lib/fonts/Inter-Light.otf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

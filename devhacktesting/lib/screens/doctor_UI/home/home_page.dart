@@ -1,14 +1,70 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:devhacktesting/screens/patient_UI/home/home_page.dart';
 import 'package:flutter/material.dart';
 // import 'package:google_nav_bar/google_nav_bar.dart';
 
 class DoctorHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // return Scaffold(
+    //   body: Center(
+    //     child: Text('YOU ARE DOCTOR !!!!! home'),
+    //   ),
+    // );
     return Scaffold(
-      body: Center(
-        child: Text('YOU ARE DOCTOR !!!!! home'),
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              gradientStartColor.withOpacity(0.5),
+              gradientEndColor.withOpacity(0.5)
+            ],
+          ),
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(height: 30),
+              const Text(
+                'Share your amazing discoveries or intriguing questions',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Color.fromARGB(255, 21, 80, 129),
+                  fontSize: 30,
+                  fontFamily: 'Merriweather Sans',
+                  fontWeight: FontWeight.w700,
+                  height: 0,
+                ),
+              ),
+              const SizedBox(height: 15),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                child: Image.asset(
+                  'lib/images/doctor_main_page.jpeg',
+                ),
+              ),
+            ],
+          ),
+        ),
+
+        // child: Scaffold(
+        // backgroundColor: Colors.transparent,
+        // body: SingleChildScrollView(
+        //   scrollDirection: Axis.vertical,
+        //   child: Column(
+        //     children: [
+        //       const SizedBox(
+        //         height: 30,
+        //       ),
+        //       Padding(
+        //         padding: const EdgeInsets.all(18.0),
+        //         child: Row(
+        //           children: [,
       ),
     );
   }

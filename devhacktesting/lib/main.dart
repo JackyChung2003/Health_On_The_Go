@@ -24,8 +24,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       // home: Calendar(),
-      home: NavBar(),
-      // home: AuthPage(),
+      // home: NavBar(),
+      home: AuthPage(),
     );
   }
 }
